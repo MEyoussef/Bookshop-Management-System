@@ -11,15 +11,13 @@ int main()
     std::cout << "\n==  Bookshop Management System ==\n\n";
     // Task 1. [ add and display books ]
     std::string UserName = "";
-    std::string UserInput = "";
     std::cout << "Enter Your Name : ";
     std::cin >> UserName;
-    std::cout << "You Have [ ";
-    std::cout << BooksNumber;
-    std::cout << " ] Books\n";
+    std::cout << "You Have [ " << BooksNumber << " ] Books" << "\n";
 
     // =============
-    std::cout << "Enter *Add* to Add Books : ";
+    std::string UserInput = "";
+    std::cout << "Enter (Add) to Add Books : ";
     std::cin >> UserInput;
     if (UserInput == "Add")
     {
@@ -31,14 +29,13 @@ int main()
         }
         if (BooksNumber == 0)
         {
-            std::cout << "Thanks For Using Our Bookshop Management System.";
+            std::cout << "No Books Will be Added.";
+            return 0;
         }
         else if (BooksNumber > 0)
         {
             char confirm;
-            std::cout << "Are You Sure You Want to Enter ";
-            std::cout << BooksNumber;
-            std::cout << " Books Into Your List? ( Y / N ) : ";
+            std::cout << "Are You Sure You Want to Enter " << BooksNumber << " Books Into Your List? ( Y / N ) : ";
             std::cin >> confirm;
             if (confirm == 'Y')
             {
@@ -46,10 +43,8 @@ int main()
                 std::string booksLabel = "";
                 for (int i = 1; i <= BooksNumber; i++)
                 {
-                    std::cout << "Enter Book Label Number [ ";
-                    std::cout << i;
-                    std::cout << " ] : ";
-                    std::getline(std::cin >> std::ws, booksLabel);
+                    std::cout << "Enter Book Label Number [ " << i << " ]";
+                    std::getline(std::cin, booksLabel);
                     BooksLabel.push_back(booksLabel);
                     booksLabel = "";
                 }
@@ -58,9 +53,7 @@ int main()
                 {
                     std::cout << i + 1 << " - " << BooksLabel[i] << "\n\n";
                 }
-                std::cout << "You Have [ ";
-                std::cout << BooksLabel.size();
-                std::cout << " ] Books\n";
+                std::cout << "You Have [ " << BooksLabel.size() << " ] Books";
 
                 // Task 2. [ change their books by implementing modifications to them ]
                 std::cout << "Are You Willing To Bring Modifications To Your Books List? ( Y / N ) : ";
@@ -71,6 +64,7 @@ int main()
                     std::cout << "Change Book Name, Add New Book, Delete a Book ? ( Change / Add / Delete ) : ";
                     std::string UserOptionInput = "";
                     std::cin >> UserOptionInput;
+                    std::cin.ignore();
                     std::vector<std::string> UserOptions{"Change", "Add", "Delete"};
 
                     // Change Book Name
@@ -85,10 +79,8 @@ int main()
                             int UserInputBookNumber = 0;
                             std::cin >> UserInputBookNumber;
                             std::string newName = "";
-                            std::cout << "Enter New Name For Book Number [ ";
-                            std::cout << UserInputBookNumber;
-                            std::cout << " ] : ";
-                            std::getline(std::cin >> std::ws, newName);
+                            std::cout << "Enter New Name For Book Number [ " << UserInputBookNumber << " ] : ";
+                            std::getline(std::cin, newName);
                             if (newName.length())
                             {
                                 BooksLabel[UserInputBookNumber] = newName;
@@ -115,12 +107,13 @@ int main()
                         {
                             std::cout << "Enter Book Name : ";
                             std::string OneMoreBook = "";
-                            std::getline(std::cin >> std::ws, OneMoreBook);
+                            std::getline(std::cin, OneMoreBook);
                             std::cout << "You Sure You Want to Add ";
                             std::cout << OneMoreBook;
                             std::cout << " to The List? ( Y / N ) : ";
                             char addBook;
                             std::cin >> addBook;
+                            std::cin.ignore();
                             if (addBook == 'Y')
                             {
                                 BooksLabel.push_back(OneMoreBook);
@@ -142,17 +135,18 @@ int main()
                         std::cout << "You Want to Delete a Book ? ( Y / N ) : ";
                         char Y_N;
                         std::cin >> Y_N;
+                        std::cin.ignore();
                         if (Y_N == 'Y')
                         {
                             std::cout << "Type The Book Number You Want to Delete ( Start From Book Number 0 - The Last Book ) : ";
                             int UserInputBookNumber = 0;
                             std::cin >> UserInputBookNumber;
+                            std::cin.ignore();
 
-                            std::cout << "You Sure You Want to Delete ";
-                            std::cout << BooksLabel[UserInputBookNumber];
-                            std::cout << " From The List? ( Y / N ) : ";
+                            std::cout << "You Sure You Want to Delete " << BooksLabel[UserInputBookNumber] << " From The List? ( Y / N ) : ";
                             char AskUser_for_Confirmation;
                             std::cin >> AskUser_for_Confirmation;
+                            std::cin.ignore();
                             if (AskUser_for_Confirmation == 'Y')
                             {
                                 BooksLabel.erase(BooksLabel.begin() + UserInputBookNumber);
@@ -198,9 +192,10 @@ void ChangeBookName()
     std::cout << "Enter Book Number : ";
     int BookNumber = 0;
     std::cin >> BookNumber;
+    std::cin.ignore();
     std::cout << "Enter New Book Name : ";
     std::string NewBookName = "";
-    std::getline(std::cin >> std::ws, NewBookName);
+    std::getline(std::cin, NewBookName);
     BooksLabel[BookNumber] = NewBookName;
     std::cout << "New Name Is : " << BooksLabel[BookNumber] << "\n\n";
 }
